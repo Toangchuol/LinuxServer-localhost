@@ -1,0 +1,121 @@
+Samba Services
+
+sudo systemctl status smb 
+○ smbd.service - Samba SMB Daemon
+     Loaded: loaded (/lib/systemd/system/smbd.service; disabled; preset: disabl>
+     Active: inactive (dead)
+       Docs: man:smbd(8)
+             man:samba(7)
+             man:smb.conf(5)
+
+(kali㉿kali)-[~]
+└─$ sudo systemctl start smb  
+──(kali㉿kali)-[~]
+└─$ sudo systemctl enable smbd
+its working and enabled
+
+Now its configuration time
+
+creating backup; ──(kali㉿kali)-[~]
+└─$ sudo cp -pf /etc/samba/smb.conf /etc/smb.conf.bak
+
+─(kali㉿kali)-[~]
+└─$ id  
+Helps show individual and group ids of the system
+──(kali㉿kali)-[~]
+└─$ id toang
+uid=1002(toang) gid=1002(toang) groups=1002(toang),100(users)
+                                                                                
+┌──(kali㉿kali)-[~]
+└─$ id kali 
+uid=1000(kali) gid=1000(kali) groups=1000(kali),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),100(users),104(kvm),106(netdev),116(wireshark),118(bluetooth),120(lpadmin),126(scanner),139(kaboxer),151(libvirt)
+          
+displays user ID primary groups and secondary groups associated with the user eg kali/toang
+─(kali㉿kali)-[~]
+└─$ id -nG
+kali adm dialout cdrom floppy sudo audio dip video plugdev users kvm netdev wireshark bluetooth lpadmin scanner kaboxer libvirt
+
+this ommits the  numbers giving us names of user and groups
+-G all groups -n Names
+changed group name in Samba config file to my current working group
+
+──(kali㉿kali)-[~] creating the directory we share on our samba server
+└─$ sudo mkdir /srv/samba                         
+[sudo] password for kali: 
+                                                                                
+
+┌──(kali㉿kali)-[~] making it writeable and browseable
+└─$ sudo chmod a+rwx /srv/samba   
+
+we should add that to the config file
+┌──(kali㉿kali)-[~]
+└─$ sudo vim /etc/samba/smb.conf      
+
+[anonyous]
+path= /srv/samba
+browseable =yes
+writeable =yes
+read only=no
+guest =ok
+
+┌──(kali㉿kali)-[~]
+└─$ sudo systemctl restart smb   
+                               
+Adding Secured Shares
+──(kali㉿kali)-[~]
+└─$ sudo addgroup smbgrp                                    
+info: Selecting GID from range 1000 to 59999 ...
+info: Adding group `smbgrp' (GID 1004) ...
+                                            
+creating samba group
+
+
+creating user 
+┌──(kali㉿kali)-[~]
+└─$ sudo adduser shares         
+info: Adding user `shares' ...
+info: Selecting UID/GID from range 1000 to 59999 ...
+info: Adding new group `shares' (1005) ...
+info: Adding new user `shares' (1005) with group `shares (1005)' ...
+info: Creating home directory `/home/shares' ...
+info: Copying files from `/etc/skel' ...
+New password: 
+
+usr:shares pass:Hello09!
+
+┌──(kali㉿kali)-[~]
+└─$ sudo adduser shares smbgrp
+info: Adding user `shares' to group `smbgrp' ...
+
+──(kali㉿kali)-[~]
+└─$ sudo smbpasswd -a shares
+New SMB password:
+Retype new SMB password:
+Added user shares.                                               
+groupPa44
+groupPa44
+
+creating secure folder for protected files
+──(kali㉿kali)-[~]
+└─$ sudo mkdir -p /srv/samba-secured
+                                      
+──(kali㉿kali)-[~]
+└─$ sudo chmod -R 0770 /srv/samba-secured 
+                                                                               
+┌──(kali㉿kali)-[~]
+└─$ sudo chown root:smbgrp /srv/samba-secured
+                                                                               
+┌──(kali㉿kali)-[~]
+└─$ sudo vim /etc/samba/smb.conf             
+                                   changed permission and ownership
+added this to config file 
+[SECURED]
+path = /srv/samba-secured
+valid users = @smbgrp
+browseable =yes
+writeable =yes
+read only =no
+
+└─$ sudo service smb restart    
+we then got samba to rewrite and configure our changes. Updating to a secured service with uer authentication
+
