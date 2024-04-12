@@ -1,0 +1,18 @@
+
+Steps I’ve taken setting up the file server NFS in linux environments
+└─$ sudo apt install nfs-kernel-server
+└─$ sudo mkdir /mnt/myshareddir                               
+created directory where my the NFS shares will be, the export folder for my file server
+└─$ sudo chown nobody:nogroup /mnt/myshareddir
+removing onwnership of the File server
+└─$ sudo chmod 777 /mnt/myshareddir           
+giving everyone on all groups all connected access to modify files(Reda, Write, Execute)
+
+┌──(kali㉿kali)-[/etc]
+└─$ sudo vim /etc/exports
+enable access to a single client
+/mnt/myshareddir {clientIP}(rw,sync,no_subtree_check)
+
+From the configuration file of the File Server 
+
+The remaining configurations are for the clients-side
