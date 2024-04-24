@@ -1,0 +1,85 @@
+
+Today: April 24th 2024
+Six weeks till June 26th
+Chapters:
+1:Host and Network Management(Linux Commands)
+Samba 
+Test Network Connectivity
+Identify Current System
+Network Resolution
+DHCP Administration
+
+2:Process Management, Monitoring and Files Management
+Network File Access Control From Java Program, smb, NFS
+
+3:DNS Server BIND
+
+4:Windows AD Domain Controller;
+Upgrading Samba to a Domain Controller
+5:Encryption:
+File Encryption with Java
+How the other above tools implemented Encryption technologies 
+
+6: Dedicated Network Storage Device for sharing files[File Transfer Services]
+Server or computer that enables transfer of files between Server and Client 
+ File server FTP Server
+
+Daily Incremental Progress in implementation and Documentation, but each Program must have its own week with intense research and Applications;
+
+Wednesday Chapter1, Thursday Chapter2, Friday Chapter3, Saturday Chapter4, Monday Chapter 5, Tuesday Chapter 6
+This week till next Wednesday more Intense Work on Host and Management(Chapter 1)
+
+Progress Report
+
+Main Purpose/focus  last work period
+April 12th 2024
+Network File System Linux  File Transfer Protocol Samba initial setup 
+
+April 14th 2024
+Chat Server. Java Client-Serve architecture Distributed Computing
+April 13th 2024
+Server HTTP. Partially done, simple working implementation done and uploaded to github.
+Tasks activities Planned
+
+Actual Tasks Performed
+FTP Server 
+Network File System-to-Intermediate
+Samba Linux resource server
+Client Server Distributed Computing Java
+
+Description of reason for deviation from plan
+None
+Main Experienced gained from last working period
+Samba Project;
+Systemctl process management utility
+using sudo Admin privileges to setup smb service
+User and group management commands. Viewing user names, groups they belong to and their corresponding ids 
+Directory and file management 
+creating users and adding them to user groups
+
+FTP
+Installing VsFTPd same file transfer protocol server installed in NGUC library
+adding users and password
+creating working direcotory for the FTP service
+creating a backup configuration file
+
+NFS
+Installing Linux Network File Server kernel to my existing OS
+finding configuration file of server
+file creation access control
+modifying attributes and properties of directories
+Changing read,write execute permissions and allowing users to access these permissions
+
+Description for reason of changes that will be implemented in projected
+
+Main Purpose/focus for next work period
+Java Network Troubleshooting utility that helps find and resolve network bottlenecks in a LAN environment
+Test Network Connectivity
+Identify Current System
+Network Resolution
+DHCP Administration
+and progressing on Samba adding new features and testing policies to implement
+
+
+Activities/Tasks Planned
+the above
